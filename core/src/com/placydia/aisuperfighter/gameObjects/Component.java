@@ -1,6 +1,7 @@
 package com.placydia.aisuperfighter.gameObjects;
 
 public abstract class Component {
+	private GameObject owner;
 
 	public abstract void init();
 	
@@ -8,7 +9,11 @@ public abstract class Component {
 	
 	public abstract void update(float delta);
 	
-	public abstract void setOwner(GameObject owner);
+	public final void setOwner(GameObject owner) {
+		this.owner = owner;
+	}
 	
-	public abstract GameObject getOwner();
+	public final GameObject getOwner() {
+		return owner;
+	}
 }
