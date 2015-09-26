@@ -2,11 +2,13 @@ package com.placydia.aisuperfighter.screens;
 
 import com.badlogic.gdx.Screen;
 import com.placydia.aisuperfighter.gameWorld.GameWorld;
+import com.placydia.aisuperfighter.physics.PhysicsWorld;
 import com.placydia.aisuperfighter.utils.Camera;
 
 public class GameScreen implements Screen{
 	public static Camera cam;
 	public static GameWorld gameWorld;
+	public static PhysicsWorld physicsWorld;
 	
 	public GameScreen() {
 		
