@@ -14,6 +14,13 @@ public class GameObjectManager {
 		objects.add(object);
 	}
 	
+	public void update(float delta) {
+		for (GameObject object : objects) {
+			object.update(delta);
+		}
+	}
+	
+	
 	
 	
 }

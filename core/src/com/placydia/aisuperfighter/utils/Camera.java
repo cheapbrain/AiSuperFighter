@@ -49,6 +49,14 @@ public class Camera {
 		float sw = Gdx.graphics.getWidth();
 		float sh = Gdx.graphics.getHeight();
 		
+		float screenRatio = sw/sh;
+		float sceneRatio = width/height;
+		
+		if (sceneRatio>screenRatio) {
+			setFixedWidth(width);
+		} else {
+			setFixedHeight(height);
+		}
 		
 		return this;
 	}

@@ -4,7 +4,7 @@ import com.badlogic.gdx.Game;
 import com.placydia.aisuperfighter.screens.GameScreen;
 
 public class FighterMain extends Game {
-	GameScreen gameScreen;
+	public static GameScreen gameScreen;
 
 	@Override
 	public void create() {

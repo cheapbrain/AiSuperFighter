@@ -31,7 +31,6 @@ public abstract class GameObject extends Component{
 	
 	public GameObject add(Component component) {
 		components.add(component);
-		
 		return this;
 	}
 	

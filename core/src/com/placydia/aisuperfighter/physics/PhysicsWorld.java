@@ -1,4 +1,4 @@
-package com.placydia.aisuperfighter.gameObjects.physics;
+package com.placydia.aisuperfighter.physics;
 
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.Matrix4;

@@ -5,8 +5,8 @@ import com.placydia.aisuperfighter.gameWorld.GameWorld;
 import com.placydia.aisuperfighter.utils.Camera;
 
 public class GameScreen implements Screen{
-	Camera cam;
-	GameWorld world;
+	public static Camera cam;
+	public static GameWorld gameWorld;
 	
 	public GameScreen() {
 		
@@ -27,8 +27,7 @@ public class GameScreen implements Screen{
 
 	@Override
 	public void resize(int width, int height) {
-		// TODO Auto-generated method stub
-		
+		cam.fit(world., height)
 	}
 
 	@Override
