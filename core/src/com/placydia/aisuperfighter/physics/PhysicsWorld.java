@@ -28,10 +28,11 @@ public class PhysicsWorld {
 		BodyDef bodyDef = new BodyDef();
 		bodyDef.position.set(physic.transform.pos);
 		bodyDef.angle = physic.transform.rot;
+		bodyDef.type = BodyDef.BodyType.DynamicBody;
 		Body body = world.createBody(bodyDef);
 		PolygonShape shape = new PolygonShape();
         shape.setAsBox(physic.width, physic.height);
-        body.createFixture(shape, 0);
+        body.createFixture(shape, 1);
         shape.dispose();
 		physic.body=body;
 	}
