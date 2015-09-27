@@ -2,7 +2,17 @@ package com.placydia.aisuperfighter.gameObjects;
 
 public abstract class Component {
 	private GameObject owner;
+	private boolean initialized = false;
+	
+	public boolean isInitialized() {
+		return initialized;
+	}
 
+	public void init0() {
+		initialized = true;
+		init();
+	}
+	
 	public abstract void init();
 	
 	public abstract void dispose();

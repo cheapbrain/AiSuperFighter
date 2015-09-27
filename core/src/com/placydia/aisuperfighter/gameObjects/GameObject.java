@@ -3,7 +3,7 @@ package com.placydia.aisuperfighter.gameObjects;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.utils.Array;
 
-public abstract class GameObject extends Component{
+public class GameObject extends Component{
 	private Array<Component> components;
 	
 	public GameObject() {
@@ -12,7 +12,7 @@ public abstract class GameObject extends Component{
 	
 	public void init() {
 		for (Component component : components)
-			component.init();
+			component.init0();
 	}
 	
 	public void dispose() {
@@ -21,8 +21,15 @@ public abstract class GameObject extends Component{
 	}
 	
 	public void update(float delta) {
-		for (Component component : components)
-			component.update(delta);
+		for (int i=0;i<components.size;i++) {
+			Component component = components.get(i);
+			if (component != null) {
+				if (!component.isInitialized())
+					component.init0();
+				component.update(delta);
+			}
+				
+		}
 	}
 	
 	public void render(SpriteBatch batch) {
@@ -31,6 +38,7 @@ public abstract class GameObject extends Component{
 	
 	public GameObject add(Component component) {
 		components.add(component);
+		component.setOwner(this);
 		return this;
 	}
 	

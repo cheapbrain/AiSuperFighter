@@ -8,7 +8,7 @@ public class Camera {
 	private OrthographicCamera orto;
 	
 	public Camera() {
-		orto = new OrthographicCamera();
+		orto = new OrthographicCamera(1, 1);
 	}
 	
 	public Matrix4 getMatrix() {
@@ -17,6 +17,14 @@ public class Camera {
 	
 	public void update(float delta) {
 		orto.update();
+	}
+	
+	public Camera screen() {
+		float sw = Gdx.graphics.getWidth();
+		float sh = Gdx.graphics.getHeight();
+		
+		orto.setToOrtho(false, sw, sh);
+		return this;
 	}
 	
 	public Camera setSize(float width, float height) {
@@ -32,8 +40,8 @@ public class Camera {
 	public Camera setFixedWidth(float width) {
 		float sw = Gdx.graphics.getWidth();
 		float sh = Gdx.graphics.getHeight();
-		
 		setSize(width, width/sw*sh);
+		System.out.println(sw+" "+sh+" "+width+" "+width/sw*sh);
 		return this;
 	}
 	
