@@ -15,8 +15,9 @@ public class GameObjectManager {
 	}
 	
 	public void update(float delta) {
-		for (GameObject object : objects) {
-			object.update(delta);
+		for (int i=0;i<objects.size;i++) {
+			GameObject object = objects.get(i);
+			object.superUpdate(delta);
 		}
 	}
 	

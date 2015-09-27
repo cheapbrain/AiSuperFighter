@@ -8,7 +8,7 @@ public abstract class Component {
 		return initialized;
 	}
 
-	public void init0() {
+	public final void superInit() {
 		initialized = true;
 		init();
 	}
@@ -16,6 +16,12 @@ public abstract class Component {
 	public abstract void init();
 	
 	public abstract void dispose();
+	
+	public final void superUpdate(float delta) {
+		if (!isInitialized())
+			superInit();
+		update(delta);
+	}
 	
 	public abstract void update(float delta);
 	

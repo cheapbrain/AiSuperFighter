@@ -11,24 +11,29 @@ public class GameObject extends Component{
 	}
 	
 	public void init() {
-		for (Component component : components)
-			component.init0();
+		for (int i=0;i<components.size;i++) {
+			Component component = components.get(i);
+			if (component != null) {
+				component.init();
+			}
+		}
 	}
 	
 	public void dispose() {
-		for (Component component : components)
-			component.dispose();
+		for (int i=0;i<components.size;i++) {
+			Component component = components.get(i);
+			if (component != null) {
+				component.dispose();
+			}
+		}
 	}
 	
 	public void update(float delta) {
 		for (int i=0;i<components.size;i++) {
 			Component component = components.get(i);
 			if (component != null) {
-				if (!component.isInitialized())
-					component.init0();
 				component.update(delta);
 			}
-				
 		}
 	}
 	
@@ -43,7 +48,8 @@ public class GameObject extends Component{
 	}
 	
 	public <T extends Component> T get(Class<T> c) {
-		for (Component component : components) {
+		for (int i=0;i<components.size;i++) {
+			Component component = components.get(i);
 			if (component.getClass()==c)
 				return (T)component;
 		}
@@ -52,7 +58,8 @@ public class GameObject extends Component{
 	
 	public void remove(Class<Component> c) {
 		Component comp = null;
-		for (Component component : components) {
+		for (int i=0;i<components.size;i++) {
+			Component component = components.get(i);
 			if (component.getClass()==c) {
 				component.setOwner(null);
 				component.dispose();
