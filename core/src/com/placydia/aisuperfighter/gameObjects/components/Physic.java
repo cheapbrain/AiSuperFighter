@@ -17,17 +17,15 @@ public class Physic extends Component{
 		transform = getOwner().get(Transform.class);
 		GameScreen.physicsWorld.add(this);
 	}
-
+	
 	@Override
-	public void dispose() {
-		// TODO Auto-generated method stub
-		
+	public void dispose() {		
 	}
 
 	@Override
 	public void update(float delta) {
-		// TODO Auto-generated method stub
-		
+		transform.pos=body.getLocalCenter();
+		transform.rot=body.getAngle();
 	}
 
 }
