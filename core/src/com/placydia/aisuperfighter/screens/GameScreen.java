@@ -27,19 +27,7 @@ public class GameScreen implements Screen{
 		
 		gameWorld = new GameWorld(10, 10);
 		physicsWorld = new PhysicsWorld();
-		
-		GameObject test = new GameObject()
-				.add(new Transform(new Vector2(0, 4)))
-				.add(new Physic(1, 1));
-		
-		gameWorld.add(test);
-		
-		test = new GameObject()
-				.add(new Transform(new Vector2(7, 3)))
-				.add(new Physic(1, 1));
-		
-		gameWorld.add(test);
-		
+	
 		cam = new Camera().fit(gameWorld.getWidth(), gameWorld.getHeight()).setPosition(0, 0);
 		
 	}

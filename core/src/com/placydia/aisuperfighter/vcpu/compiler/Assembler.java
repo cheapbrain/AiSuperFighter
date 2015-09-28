@@ -10,7 +10,6 @@ public class Assembler {
 	}
 	
 	public String[] clean(String input) {
-		
 		return input.trim().toUpperCase().split("\\s+");
 	}
 	
