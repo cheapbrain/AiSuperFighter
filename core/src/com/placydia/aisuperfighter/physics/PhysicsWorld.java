@@ -2,12 +2,8 @@ package com.placydia.aisuperfighter.physics;
 
 import com.badlogic.gdx.math.Matrix4;
 import com.badlogic.gdx.math.Vector2;
-import com.badlogic.gdx.physics.box2d.Body;
-import com.badlogic.gdx.physics.box2d.BodyDef;
 import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
-import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.badlogic.gdx.physics.box2d.World;
-import com.placydia.aisuperfighter.gameObjects.components.Physic;
 
 public class PhysicsWorld {
 	public static World world;
@@ -23,18 +19,6 @@ public class PhysicsWorld {
 			world.step(PhysicsConstants.TIME_STEP, 6, 2);
 			accumulator-=PhysicsConstants.TIME_STEP;
 		}
-	}
-	public void add(Physic physic){
-		BodyDef bodyDef = new BodyDef();
-		bodyDef.position.set(physic.transform.pos);
-		bodyDef.angle = physic.transform.rot;
-		bodyDef.type = BodyDef.BodyType.DynamicBody;
-		Body body = world.createBody(bodyDef);
-		PolygonShape shape = new PolygonShape();
-        shape.setAsBox(physic.width, physic.height);
-        body.createFixture(shape, 1);
-        shape.dispose();
-		physic.body=body;
 	}
 	public void debugRender(Matrix4 combined){
 		renderer.render(world, combined);

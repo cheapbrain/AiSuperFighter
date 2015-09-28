@@ -1,7 +1,6 @@
 package com.placydia.aisuperfighter.gameObjects.objects;
 
 import com.badlogic.gdx.math.Vector2;
-import com.badlogic.gdx.physics.box2d.BodyDef;
 import com.badlogic.gdx.physics.box2d.joints.RevoluteJointDef;
 import com.placydia.aisuperfighter.gameObjects.Module;
 import com.placydia.aisuperfighter.gameObjects.Ship;
@@ -9,12 +8,10 @@ import com.placydia.aisuperfighter.gameObjects.components.Physic;
 import com.placydia.aisuperfighter.gameObjects.components.Transform;
 import com.placydia.aisuperfighter.physics.PhysicsWorld;
 
-public class Propeller extends Module{
-	public boolean active;
-	public float force = 20;
-	public Propeller(Ship ship, float x, float y, float width, float height, float rot){
+public class Gun extends Module{
+
+	public Gun(Ship ship, float x, float y, float width, float height, float rot){
 		this.ship = ship;
-		active = false;
 		add(new Transform(new Vector2(x,y), rot, new Vector2(1,1)));
 		add(new Physic(get(Transform.class), width, height, 1f));
 	}
@@ -32,10 +29,5 @@ public class Propeller extends Module{
 		Vector2 pos = get(Physic.class).body.getTransform().getPosition();
 		float rot = ship.get(Transform.class).rot+get(Transform.class).rot;
 		get(Physic.class).body.setTransform(pos, rot);
-		if(active){
-			float x = (float) (Math.cos(rot)*force*delta);
-			float y = (float) (Math.sin(rot)*force*delta);
-			get(Physic.class).body.applyForceToCenter(new Vector2(x,y), true);
-		}
 	}
 }
