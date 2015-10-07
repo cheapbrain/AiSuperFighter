@@ -5,10 +5,6 @@ import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.math.Vector2;
-import com.placydia.aisuperfighter.gameObjects.GameObject;
-import com.placydia.aisuperfighter.gameObjects.components.Physic;
-import com.placydia.aisuperfighter.gameObjects.components.Transform;
 import com.placydia.aisuperfighter.gameWorld.GameWorld;
 import com.placydia.aisuperfighter.physics.PhysicsWorld;
 import com.placydia.aisuperfighter.utils.Camera;
@@ -28,7 +24,7 @@ public class GameScreen implements Screen{
 		gameWorld = new GameWorld(10, 10);
 		physicsWorld = new PhysicsWorld();
 	
-		cam = new Camera().fit(gameWorld.getWidth(), gameWorld.getHeight()).setPosition(0, 0);
+		cam = new Camera().fit(gameWorld.getWidth()*4, gameWorld.getHeight()*4).setPosition(0, 0);
 		
 	}
 
@@ -40,6 +36,8 @@ public class GameScreen implements Screen{
 
 	@Override
 	public void render(float delta) {
+		if (delta>0.05)
+			delta = 0.051f;
 		gameWorld.update(delta);
 		physicsWorld.update(delta);
 		
@@ -57,7 +55,7 @@ public class GameScreen implements Screen{
 
 	@Override
 	public void resize(int width, int height) {
-		cam.fit(gameWorld.getWidth(), gameWorld.getHeight());
+		cam.fit(gameWorld.getWidth()*4, gameWorld.getHeight()*4);
 	}
 
 	@Override

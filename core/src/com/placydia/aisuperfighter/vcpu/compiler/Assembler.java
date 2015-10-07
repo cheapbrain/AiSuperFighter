@@ -1,5 +1,10 @@
 package com.placydia.aisuperfighter.vcpu.compiler;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.util.Scanner;
+
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.utils.Array;
 
 public class Assembler {
@@ -9,14 +14,22 @@ public class Assembler {
 		
 	}
 	
+	public String load(String path) {
+		String text = Gdx.files.internal(path).readString();
+		
+		return text;
+	}
+	
 	public String[] clean(String input) {
 		return input.trim().toUpperCase().split("\\s+");
 	}
 	
-	public short[] Compile(String source) {
+	public int[] compile(String source) {
 		funcs = clean(source);
 		
-		Array<Short> words = new Array<Short>();
+		Array<Integer> words = new Array<Integer>();
+		Array<Pair> labs = new Array<Pair>();
+		Array<Pair> uses = new Array<Pair>();
 		
 		int i = 0;
 		while(i<funcs.length) {
@@ -39,25 +52,52 @@ public class Assembler {
 							}
 						} 
 					} else {
-						System.err.println("WHAT IS THIS?!?!: "+funcs[i]);
+						int addr = words.size+1;
+						if (extra[0]!=-1) addr += j;
+						uses.add(new Pair(funcs[i], addr));
+						value = Language.encode("255");
+						word = (word<<5)|(value[0]&0x1F);
+						extra[j] = value[1];
 					}
 				}
-				words.add((short)(word&0xFFFF));
+				words.add(word&0xFFFF);
 				for (int j=0;j<extra.length;j++) {
 					if (extra[j]!=-1)
-						words.add((short)extra[j]);
+						words.add(extra[j]);
 				}
 			} else {
-				System.err.println("WHAT IS THIS?!?!: "+func);
+				if (func.charAt(0)==':') {
+					labs.add(new Pair(func.substring(1), words.size));
+				} else {
+					System.err.println("WHAT IS THIS?!?!: "+func);
+				}
 			}
 			i++;
 		}
 		words.shrink();
-		short[] out = new short[words.size];
+		int[] out = new int[words.size];
 		for (int j=0;j<words.size;j++)
 			out[j] = words.get(j);
+		
+		for (Pair use:uses) {
+			for (Pair lab:labs) {
+				if (lab.l.equals(use.l)) {
+					out[use.a] = lab.a&0xFFFF;
+				}
+			}
+		}
+		
 		return out;
 	}
 	
+	private class Pair {
+		public String l;
+		public int a;
+		
+		public Pair(String label, int addr) {
+			a = addr;
+			l = label;
+		}
+	}
 
 }

@@ -1,6 +1,7 @@
 package com.placydia.aisuperfighter.vcpu.compiler;
 
 import com.badlogic.gdx.utils.Array;
+import com.placydia.aisuperfighter.vcpu.Computer;
 import com.placydia.aisuperfighter.vcpu.Memory;
 
 public class Language {
@@ -10,46 +11,153 @@ public class Language {
 		funcs = new Array<Instruction>();
 		funcs.add(new Instruction("SET", 0x00, 2, 1, new Performer(){
 			@Override
-			public int execute(Memory mem, int a, int b) {
+			public int execute(Computer comp, int a, int b) {
 				return b;
 			}
 		}));
 		funcs.add(new Instruction("ADD", 0x01, 2, 1, new Performer(){
 			@Override
-			public int execute(Memory mem, int a, int b) {
+			public int execute(Computer comp, int a, int b) {
 				return (a+b);
 			}
 		}));
 		funcs.add(new Instruction("SUB", 0x02, 2, 1, new Performer(){
 			@Override
-			public int execute(Memory mem, int a, int b) {
+			public int execute(Computer comp, int a, int b) {
 				return (a-b);
 			}
 		}));
 		funcs.add(new Instruction("MUL", 0x03, 2, 1, new Performer(){
 			@Override
-			public int execute(Memory mem, int a, int b) {
+			public int execute(Computer comp, int a, int b) {
 				return (a*b);
 			}
 		}));
 		funcs.add(new Instruction("DIV", 0x04, 2, 1, new Performer(){
 			@Override
-			public int execute(Memory mem, int a, int b) {
-				return (a/b);
+			public int execute(Computer comp, int a, int b) {
+				if (b!=0)
+					return (a/b);
+				
+				comp.cpu.crash = true;
+				return -1;
 			}
 		}));
 		funcs.add(new Instruction("MOD", 0x05, 2, 1, new Performer(){
 			@Override
-			public int execute(Memory mem, int a, int b) {
-				return (a%b);
+			public int execute(Computer comp, int a, int b) {
+				if (b!=0)
+					return (a%b);
+				
+				comp.cpu.crash = true;
+				return -1;
 			}
 		}));
 		funcs.add(new Instruction("IEQ", 0x06, 2, 1, new Performer(){
 			@Override
-			public int execute(Memory mem, int a, int b) {
-				return (a+b)&0xFFFF;
+			public int execute(Computer comp, int a, int b) {
+				if (!(a==b)) {
+					int l = length(comp.mem.words[comp.mem.regs[Memory.PC]]);
+					comp.mem.regs[Memory.PC] += l;
+				}
+				return -1;
 			}
 		}));
+		funcs.add(new Instruction("INE", 0x07, 2, 1, new Performer(){
+			@Override
+			public int execute(Computer comp, int a, int b) {
+				if (!(a!=b)) {
+					int l = length(comp.mem.words[comp.mem.regs[Memory.PC]]);
+					comp.mem.regs[Memory.PC] += l;
+				}
+				return -1;
+			}
+		}));
+		funcs.add(new Instruction("IGT", 0x08, 2, 1, new Performer(){
+			@Override
+			public int execute(Computer comp, int a, int b) {
+				if (!(a>b)) {
+					int l = length(comp.mem.words[comp.mem.regs[Memory.PC]]);
+					comp.mem.regs[Memory.PC] += l;
+				}
+				return -1;
+			}
+		}));
+		funcs.add(new Instruction("ILT", 0x09, 2, 1, new Performer(){
+			@Override
+			public int execute(Computer comp, int a, int b) {
+				if (!(a<b)) {
+					int l = length(comp.mem.words[comp.mem.regs[Memory.PC]]);
+					comp.mem.regs[Memory.PC] += l;
+				}
+				return -1;
+			}
+		}));
+		funcs.add(new Instruction("AND", 0x0A, 2, 1, new Performer(){
+			@Override
+			public int execute(Computer comp, int a, int b) {
+				return a&b;
+			}
+		}));
+		funcs.add(new Instruction("BOR", 0x0B, 2, 1, new Performer(){
+			@Override
+			public int execute(Computer comp, int a, int b) {
+				return a|b;
+			}
+		}));
+		funcs.add(new Instruction("XOR", 0x0C, 2, 1, new Performer(){
+			@Override
+			public int execute(Computer comp, int a, int b) {
+				return a^b;
+			}
+		}));
+		funcs.add(new Instruction("NAN", 0x0D, 2, 1, new Performer(){
+			@Override
+			public int execute(Computer comp, int a, int b) {
+				return (~(a&b));
+			}
+		}));
+		funcs.add(new Instruction("NOR", 0x0E, 2, 1, new Performer(){
+			@Override
+			public int execute(Computer comp, int a, int b) {
+				return (~(a|b));
+			}
+		}));
+		funcs.add(new Instruction("NXO", 0x0F, 2, 1, new Performer(){
+			@Override
+			public int execute(Computer comp, int a, int b) {
+				return (~(a^b));
+			}
+		}));
+		funcs.add(new Instruction("SHL", 0x10, 2, 1, new Performer(){
+			@Override
+			public int execute(Computer comp, int a, int b) {
+				return (a<<b);
+			}
+		}));
+		funcs.add(new Instruction("SHR", 0x11, 2, 1, new Performer(){
+			@Override
+			public int execute(Computer comp, int a, int b) {
+				return (a>>>b);
+			}
+		}));
+		funcs.add(new Instruction("COM", 0x30, 2, 1, new Performer(){
+			@Override
+			public int execute(Computer comp, int a, int b) {
+				comp.sys.signal(a, b);
+				return -1;
+			}
+		}));
+	}
+	
+	public static int length(int word) {
+		int a = (word>>5)&0x1F;
+		int b = word&0x1F;
+		
+		int result = 1;
+		if (a>=0x16) result += 1;
+		if (b>=0x16) result += 1;
+		return result;
 	}
 	
 	public static Instruction getInstruction(String name) {

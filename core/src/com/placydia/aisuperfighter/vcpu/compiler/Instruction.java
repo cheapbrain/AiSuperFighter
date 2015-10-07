@@ -1,5 +1,6 @@
 package com.placydia.aisuperfighter.vcpu.compiler;
 
+import com.placydia.aisuperfighter.vcpu.Computer;
 import com.placydia.aisuperfighter.vcpu.Memory;
 
 public class Instruction {
@@ -33,8 +34,8 @@ public class Instruction {
 		return cycles;
 	}
 	
-	public int execute(Memory mem, int a, int b) {
-		return performer.execute(mem, a, b);
+	public int execute(Computer comp, int a, int b) {
+		return performer.execute(comp, a, b);
 	}
 	
 }
