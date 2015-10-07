@@ -21,7 +21,7 @@ public class GaloTest {
 		test.addModule(gun);
 		GameScreen.gameWorld.add(test);
 		gun.activate();
-		p1.activate(5000);
+		p1.activate(500);
 	}
 	
 }

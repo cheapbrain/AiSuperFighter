@@ -12,13 +12,5 @@ public abstract class Module extends GameObject{
 		this.ship = ship;
 		id = ModuleIdManager.nextId();
 	}
-	public void setBodyDef(){
-		bodyDef.position.set(new Vector2(ship.get(Transform.class).pos.x+get(Transform.class).pos.x,
-				 ship.get(Transform.class).pos.y+get(Transform.class).pos.y));
-		bodyDef.angle = ship.get(Transform.class).rot+get(Transform.class).rot;
-		bodyDef.type = BodyDef.BodyType.DynamicBody;
-	}
-	public void setShape(float width, float height){
-		shape.setAsBox(width, height);	
-	}
+
 }
