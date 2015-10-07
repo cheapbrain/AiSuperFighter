@@ -13,20 +13,7 @@ public class ErmaTest {
 	public static void init() {
 		Assembler asm = new Assembler();
 		int[] compiled = asm.compile(asm.load("test.asm"));
-		for (int word : compiled) {
-			System.out.println(
-					String.format("%16s", Integer.toBinaryString((word)&0xFFFF))
-						.replace(' ', '0')+" "+
-					String.format("%4s", Integer.toHexString((word)&0xFFFF))
-						.replace(' ', '0')+" "+
-					String.format("%2s", Integer.toHexString((word>>>10)&0x3F))
-						.replace(' ', '0')+" "+
-					String.format("%2s", Integer.toHexString((word>>>5)&0x1F))
-						.replace(' ', '0')+" "+
-					String.format("%2s", Integer.toHexString((word)&0x1F))
-						.replace(' ', '0')+" "
-				);
-		}
+		
 		
 		float x = 20;
 		float y = 20;

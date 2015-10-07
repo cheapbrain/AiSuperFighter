@@ -21,10 +21,10 @@ public class GameScreen implements Screen{
 		tt = new Texture(Gdx.files.internal("badlogic.jpg"));
 		batch = new SpriteBatch();
 		
-		gameWorld = new GameWorld(10, 10);
+		gameWorld = new GameWorld(40, 40);
 		physicsWorld = new PhysicsWorld();
 	
-		cam = new Camera().fit(gameWorld.getWidth()*4, gameWorld.getHeight()*4).setPosition(0, 0);
+		cam = new Camera().fit(gameWorld.getWidth(), gameWorld.getHeight()).setPosition(0, 0);
 		
 	}
 
@@ -55,7 +55,7 @@ public class GameScreen implements Screen{
 
 	@Override
 	public void resize(int width, int height) {
-		cam.fit(gameWorld.getWidth()*4, gameWorld.getHeight()*4);
+		cam.fit(gameWorld.getWidth(), gameWorld.getHeight());
 	}
 
 	@Override
