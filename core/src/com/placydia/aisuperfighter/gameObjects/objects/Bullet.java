@@ -22,8 +22,5 @@ public class Bullet extends GameObject{
 	}
 	public void update(float delta){
 		super.update(delta);
-		Vector2 pos = get(BulletPhysic.class).body.getTransform().getPosition();
-		float rot = getOwner().get(Transform.class).rot;
-		get(BulletPhysic.class).body.setTransform(pos, rot);
 	}
 }

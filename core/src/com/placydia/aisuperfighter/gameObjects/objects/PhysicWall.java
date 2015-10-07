@@ -1,22 +1,25 @@
-package com.placydia.aisuperfighter.gameObjects.components;
+package com.placydia.aisuperfighter.gameObjects.objects;
 
+import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.BodyDef;
 import com.badlogic.gdx.physics.box2d.PolygonShape;
-import com.placydia.aisuperfighter.gameObjects.Component;
+import com.placydia.aisuperfighter.gameObjects.GameObject;
+import com.placydia.aisuperfighter.gameObjects.Module;
 import com.placydia.aisuperfighter.screens.GameScreen;
 
-public class BulletPhysic extends Component{
+public class PhysicWall extends GameObject{
 	public Body body;
 	public BodyDef bodyDef = new BodyDef();
 	public PolygonShape shape = new PolygonShape();
-	public Transform transform;
-	public float width, height, density;
-	public BulletPhysic(Transform transform, float width, float height, float density){
-		this.transform =transform;
+	public float width, height, density, x, y;
+	public Module owner;
+	public PhysicWall(float x, float y, float width, float height, float density){
 		this.width= width;
 		this.height = height;
 		this.density = density;
+		this.x = x;
+		this.y = y;
 	}
 	@Override
 	public void init() {
@@ -31,18 +34,16 @@ public class BulletPhysic extends Component{
 	}
 	@Override
 	public void update(float delta) {
+		// TODO Auto-generated method stub
 		
 	}
 	public void setBodyDef(){
-		bodyDef.position.set(getOwner().get(Transform.class).pos.x, getOwner().get(Transform.class).pos.y);
-		bodyDef.angle = getOwner().get(Transform.class).rot;
-		bodyDef.type = BodyDef.BodyType.DynamicBody;
+		bodyDef.position.set(new Vector2(x, y));
+		bodyDef.angle = 0;
+		bodyDef.type = BodyDef.BodyType.StaticBody;
 	}
-	
-
 	
 	public void setShape(float width, float height){
 		shape.setAsBox(width, height);	
 	}
 }
-

@@ -2,6 +2,7 @@ package com.placydia.aisuperfighter.debug;
 
 import com.placydia.aisuperfighter.gameObjects.Ship;
 import com.placydia.aisuperfighter.gameObjects.objects.Gun;
+import com.placydia.aisuperfighter.gameObjects.objects.PhysicWall;
 import com.placydia.aisuperfighter.gameObjects.objects.Propeller;
 import com.placydia.aisuperfighter.screens.GameScreen;
 
@@ -20,8 +21,16 @@ public class GaloTest {
 		test.addModule(p2);
 		test.addModule(gun);
 		GameScreen.gameWorld.add(test);
-		gun.activate();
+		PhysicWall wall = new PhysicWall(0,0,0.5f,GameScreen.gameWorld.getHeight(),10);
+		GameScreen.gameWorld.add(wall);
+		wall = new PhysicWall(GameScreen.gameWorld.getWidth(),0,0.5f,GameScreen.gameWorld.getHeight(),10);
+		GameScreen.gameWorld.add(wall);
+		wall = new PhysicWall(0,0,GameScreen.gameWorld.getWidth(),0.5f,10);
+		GameScreen.gameWorld.add(wall);
+		wall = new PhysicWall(0,GameScreen.gameWorld.getHeight(),GameScreen.gameWorld.getWidth(),0.5f,10);
+		GameScreen.gameWorld.add(wall);
 		p1.activate(500);
+		GameScreen.physicsWorld.ship=test;
 	}
 	
 }

@@ -3,6 +3,7 @@ package com.placydia.aisuperfighter.gameObjects.components;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.BodyDef;
+import com.badlogic.gdx.physics.box2d.Fixture;
 import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.placydia.aisuperfighter.gameObjects.Component;
 import com.placydia.aisuperfighter.gameObjects.Module;
@@ -28,7 +29,7 @@ public class ModulePhysic extends Component{
 		setBodyDef();
 		body = GameScreen.physicsWorld.world.createBody(bodyDef);        
         setShape(width, height);
-        body.createFixture(shape, density);
+        Fixture f = body.createFixture(shape, density);
 	}
 	
 	@Override
