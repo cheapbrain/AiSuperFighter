@@ -15,7 +15,6 @@ public class Transform extends Component{
 		this.rot = rot;
 		this.scale = scale;
 	}
-	
 	public Transform(Vector2 pos){
 		this.pos=pos;
 		rot=0;
@@ -43,5 +42,9 @@ public class Transform extends Component{
 	@Override
 	public void update(float delta) {
 	}
-	
+	public void set(Vector2 pos, float rot, Vector2 scale){
+		this.pos = pos;
+		this.rot = rot;
+		this.scale = scale;
+	}
 }

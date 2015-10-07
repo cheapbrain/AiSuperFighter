@@ -10,11 +10,9 @@ import com.placydia.aisuperfighter.gameObjects.components.Transform;
 import com.placydia.aisuperfighter.physics.PhysicsWorld;
 
 public class Propeller extends Module{
-	public boolean active;
-	public float force = 20;
+	private float force = 0;
 	public Propeller(Ship ship, float x, float y, float width, float height, float rot){
-		this.ship = ship;
-		active = false;
+		super(ship);
 		add(new Transform(new Vector2(x,y), rot, new Vector2(1,1)));
 		add(new Physic(get(Transform.class), width, height, 1f));
 	}
@@ -30,12 +28,16 @@ public class Propeller extends Module{
 	public void update(float delta){
 		super.update(delta);
 		Vector2 pos = get(Physic.class).body.getTransform().getPosition();
-		float rot = ship.get(Transform.class).rot+get(Transform.class).rot;
+		float rot = ship.get(Transform.class).rot;
 		get(Physic.class).body.setTransform(pos, rot);
-		if(active){
-			float x = (float) (Math.cos(rot)*force*delta);
-			float y = (float) (Math.sin(rot)*force*delta);
-			get(Physic.class).body.applyForceToCenter(new Vector2(x,y), true);
-		}
+		float x = (float) (Math.cos(rot)*force*delta);
+		float y = (float) (Math.sin(rot)*force*delta);
+		get(Physic.class).body.applyForceToCenter(new Vector2(x,y), true);
+	}
+	public void activate(float force){
+		this.force=force;
+	}
+	public void stop(){
+		force=0;
 	}
 }

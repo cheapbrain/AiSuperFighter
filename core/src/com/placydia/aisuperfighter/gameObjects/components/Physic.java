@@ -1,6 +1,8 @@
 package com.placydia.aisuperfighter.gameObjects.components;
 
 import com.badlogic.gdx.physics.box2d.Body;
+import com.badlogic.gdx.physics.box2d.BodyDef;
+import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.placydia.aisuperfighter.gameObjects.Component;
 import com.placydia.aisuperfighter.gameObjects.Module;
 import com.placydia.aisuperfighter.gameObjects.Ship;
@@ -8,6 +10,8 @@ import com.placydia.aisuperfighter.screens.GameScreen;
 
 public class Physic extends Component{
 	public Body body;
+	public BodyDef bodyDef = new BodyDef();
+	public PolygonShape shape = new PolygonShape();
 	public Transform transform;
 	public float width, height, density;
 	public Physic(Transform transform, float width, float height, float density){
@@ -18,10 +22,10 @@ public class Physic extends Component{
 	}
 	@Override
 	public void init() {
-		((Module)getOwner()).setBodyDef();
-		body = GameScreen.physicsWorld.world.createBody(((Module)getOwner()).bodyDef);        
-        ((Module)getOwner()).setShape(width, height);
-        body.createFixture(((Module)getOwner()).shape, density);
+		setBodyDef();
+		body = GameScreen.physicsWorld.world.createBody(bodyDef);        
+        setShape(width, height);
+        body.createFixture(shape, density);
 	}
 	
 	@Override
@@ -31,5 +35,13 @@ public class Physic extends Component{
 	public void update(float delta) {
 		// TODO Auto-generated method stub
 		
+	}
+	public void setBodyDef(){
+		bodyDef.position.set(getOwner().get(Transform.class).pos.x, getOwner().get(Transform.class).pos.y);
+		bodyDef.angle = getOwner().get(Transform.class).rot;
+		bodyDef.type = BodyDef.BodyType.DynamicBody;
+	}
+	public void setShape(float width, float height){
+		shape.setAsBox(width, height);	
 	}
 }

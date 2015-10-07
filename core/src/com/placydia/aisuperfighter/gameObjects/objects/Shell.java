@@ -9,13 +9,14 @@ import com.placydia.aisuperfighter.gameObjects.components.Transform;
 
 public class Shell extends Module{
 	public Shell(Ship ship, float x, float y, float width, float height){
-		this.ship = ship;
+		super(ship);
 		add(new Transform(new Vector2(x,y)));
-		add(new Physic(get(Transform.class), width, height, 1));
+		add(new Physic(get(Transform.class), width, height, 5));
 	}
 	public void update(float delta){
 		super.update(delta);
 		float rot = get(Physic.class).body.getAngle();
 		ship.get(Transform.class).rot = rot;
+		ship.get(Transform.class).pos = get(Physic.class).body.getPosition();
 	}
 }

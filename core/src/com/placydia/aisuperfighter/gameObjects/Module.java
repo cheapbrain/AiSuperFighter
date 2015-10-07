@@ -7,8 +7,11 @@ import com.placydia.aisuperfighter.gameObjects.components.Transform;
 
 public abstract class Module extends GameObject{
 	public Ship ship;
-	public BodyDef bodyDef = new BodyDef();
-	public PolygonShape shape = new PolygonShape();
+	public int id;
+	public Module(Ship ship){
+		this.ship = ship;
+		id = ModuleIdManager.nextId();
+	}
 	public void setBodyDef(){
 		bodyDef.position.set(new Vector2(ship.get(Transform.class).pos.x+get(Transform.class).pos.x,
 				 ship.get(Transform.class).pos.y+get(Transform.class).pos.y));
@@ -18,5 +21,4 @@ public abstract class Module extends GameObject{
 	public void setShape(float width, float height){
 		shape.setAsBox(width, height);	
 	}
-	
 }
