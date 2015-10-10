@@ -1,5 +1,6 @@
 package com.placydia.aisuperfighter.debug;
 
+import com.placydia.aisuperfighter.gameObjects.GameObject;
 import com.placydia.aisuperfighter.gameObjects.Ship;
 import com.placydia.aisuperfighter.gameObjects.objects.Gun;
 import com.placydia.aisuperfighter.gameObjects.objects.PhysicWall;
@@ -9,8 +10,8 @@ import com.placydia.aisuperfighter.screens.GameScreen;
 public class GaloTest {
 
 	public static void init() {
-		float x = 3;
-		float y = 3;
+		float x =10;
+		float y = 10;
 		float width = 1;
 		float height = 1;
 		Ship test = new Ship(x,y,width, height);
@@ -21,16 +22,22 @@ public class GaloTest {
 		test.addModule(p2);
 		test.addModule(gun);
 		GameScreen.gameWorld.add(test);
-		PhysicWall wall = new PhysicWall(0,0,0.5f,GameScreen.gameWorld.getHeight(),10);
-		GameScreen.gameWorld.add(wall);
-		wall = new PhysicWall(GameScreen.gameWorld.getWidth(),0,0.5f,GameScreen.gameWorld.getHeight(),10);
-		GameScreen.gameWorld.add(wall);
-		wall = new PhysicWall(0,0,GameScreen.gameWorld.getWidth(),0.5f,10);
-		GameScreen.gameWorld.add(wall);
-		wall = new PhysicWall(0,GameScreen.gameWorld.getHeight(),GameScreen.gameWorld.getWidth(),0.5f,10);
-		GameScreen.gameWorld.add(wall);
-		p1.activate(500);
-		GameScreen.physicsWorld.ship=test;
+		GameObject muro = new GameObject();
+		muro.add(new PhysicWall(0,0,0.5f,GameScreen.gameWorld.getHeight(),10));
+		GameScreen.gameWorld.add(muro);
+		muro = new GameObject();
+		muro.add(new PhysicWall(GameScreen.gameWorld.getWidth(),0,0.5f,GameScreen.gameWorld.getHeight(),10));
+		GameScreen.gameWorld.add(muro);
+		muro = new GameObject();
+		muro.add(new PhysicWall(0,0,GameScreen.gameWorld.getWidth(),0.5f,10));
+		GameScreen.gameWorld.add(muro);
+		muro = new GameObject();
+		muro.add(new PhysicWall(0,GameScreen.gameWorld.getHeight(),GameScreen.gameWorld.getWidth(),0.5f,10));
+		GameScreen.gameWorld.add(muro);
+		//p1.activate(-2000);
+		//p2.activate(2000);
+		//gun.activate();
+		GameScreen.ship=test;
 	}
 	
 }

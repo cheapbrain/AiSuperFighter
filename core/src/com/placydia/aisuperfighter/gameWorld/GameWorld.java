@@ -4,7 +4,7 @@ import com.placydia.aisuperfighter.gameObjects.GameObject;
 import com.placydia.aisuperfighter.gameObjects.GameObjectManager;
 
 public class GameWorld {
-	GameObjectManager objectManager;
+	public GameObjectManager objectManager;
 	private float width, height;
 
 	public GameWorld(float width, float height) {

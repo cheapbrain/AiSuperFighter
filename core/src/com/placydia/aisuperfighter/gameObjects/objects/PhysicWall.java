@@ -6,12 +6,10 @@ import com.badlogic.gdx.physics.box2d.BodyDef;
 import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.placydia.aisuperfighter.gameObjects.GameObject;
 import com.placydia.aisuperfighter.gameObjects.Module;
+import com.placydia.aisuperfighter.gameObjects.components.Physic;
 import com.placydia.aisuperfighter.screens.GameScreen;
 
-public class PhysicWall extends GameObject{
-	public Body body;
-	public BodyDef bodyDef = new BodyDef();
-	public PolygonShape shape = new PolygonShape();
+public class PhysicWall extends Physic{
 	public float width, height, density, x, y;
 	public Module owner;
 	public PhysicWall(float x, float y, float width, float height, float density){

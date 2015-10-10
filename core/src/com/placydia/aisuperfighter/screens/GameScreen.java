@@ -5,6 +5,11 @@ import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
+import com.badlogic.gdx.graphics.glutils.ShapeRenderer.ShapeType;
+import com.badlogic.gdx.math.Vector2;
+import com.placydia.aisuperfighter.gameObjects.Ship;
+import com.placydia.aisuperfighter.gameObjects.objects.Gun;
 import com.placydia.aisuperfighter.gameWorld.GameWorld;
 import com.placydia.aisuperfighter.physics.PhysicsWorld;
 import com.placydia.aisuperfighter.utils.Camera;
@@ -13,14 +18,15 @@ public class GameScreen implements Screen{
 	public static Camera cam;
 	public static GameWorld gameWorld;
 	public static PhysicsWorld physicsWorld;
-	
+	ShapeRenderer renderer;
+	public static Ship ship;
 	Texture tt;
 	SpriteBatch batch;
 	
 	public GameScreen() {
 		tt = new Texture(Gdx.files.internal("badlogic.jpg"));
 		batch = new SpriteBatch();
-		
+		renderer = new ShapeRenderer();
 		gameWorld = new GameWorld(40, 40);
 		physicsWorld = new PhysicsWorld();
 	
@@ -49,7 +55,10 @@ public class GameScreen implements Screen{
 		batch.setProjectionMatrix(cam.getMatrix());
 		batch.begin();
 		batch.end();
-		
+		renderer.setProjectionMatrix(cam.getMatrix());
+		renderer.begin(ShapeType.Line);
+		renderer.line(new Vector2(ship.get(Gun.class).radarx,ship.get(Gun.class).radary), new Vector2(ship.get(Gun.class).radarx2, ship.get(Gun.class).radary2));
+		renderer.end();
 		physicsWorld.debugRender(cam.getMatrix());
 	}
 

@@ -14,7 +14,7 @@ public class Propeller extends Module{
 	public Propeller(Ship ship, float x, float y, float width, float height, float rot){
 		super(ship);
 		add(new Transform(new Vector2(x,y), rot, new Vector2(1,1)));
-		add(new ModulePhysic(get(Transform.class), width, height, 1f, this));
+		add(new ModulePhysic(get(Transform.class), width, height, 0, this));
 	}
 	public void init(){
 		super.init();

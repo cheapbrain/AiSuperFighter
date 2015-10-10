@@ -10,10 +10,7 @@ import com.placydia.aisuperfighter.gameObjects.Module;
 import com.placydia.aisuperfighter.gameObjects.Ship;
 import com.placydia.aisuperfighter.screens.GameScreen;
 
-public class ModulePhysic extends Component{
-	public Body body;
-	public BodyDef bodyDef = new BodyDef();
-	public PolygonShape shape = new PolygonShape();
+public class ModulePhysic extends Physic{
 	public Transform transform;
 	public float width, height, density;
 	public Module owner;

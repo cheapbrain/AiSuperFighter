@@ -1,15 +1,9 @@
 package com.placydia.aisuperfighter.gameObjects.components;
 
-import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.BodyDef;
-import com.badlogic.gdx.physics.box2d.PolygonShape;
-import com.placydia.aisuperfighter.gameObjects.Component;
 import com.placydia.aisuperfighter.screens.GameScreen;
 
-public class BulletPhysic extends Component{
-	public Body body;
-	public BodyDef bodyDef = new BodyDef();
-	public PolygonShape shape = new PolygonShape();
+public class BulletPhysic extends Physic{
 	public Transform transform;
 	public float width, height, density;
 	public BulletPhysic(Transform transform, float width, float height, float density){
@@ -24,6 +18,8 @@ public class BulletPhysic extends Component{
 		body = GameScreen.physicsWorld.world.createBody(bodyDef);        
         setShape(width, height);
         body.createFixture(shape, density);
+		String str = new String("cacca");
+		body.setUserData(str);
 	}
 	
 	@Override
